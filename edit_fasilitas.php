@@ -1,0 +1,83 @@
+
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <div class="w-full md:w-1/4 bg-blue-500 h-auto md:h-screen p-4">
+            <div class="text-white text-2xl font-bold mb-8 border-b border-white pb-2">JAYA HOTEL</div>
+            <div class="text-white text-xl font-semibold mb-4 border-b border-white pb-2">Admin</div>
+            <div class="text-white mb-4 pb-2">
+                <a href="#" class="flex items-center">
+                    <i class="fas fa-home mr-2"></i> Dashboard
+                </a>
+            </div>
+            <div class="text-white mb-4">
+                <a href="#" class="flex items-center">
+                    <i class="fas fa-bed mr-2"></i> Kamar Hotel
+                </a>
+            </div>
+            <div class="text-white mb-4">
+                <a href="#" class="flex items-center">
+                    <i class="fas fa-bed mr-2"></i> Fasilitas Hotel
+                </a>
+            </div>
+            <div class="text-white">
+                <a href="#" class="flex items-center">
+                    <i class="fas fa-lock mr-2"></i> Log Out
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="w-full md:w-3/4 p-4 md:p-8">
+            <div class="bg-gray-300 p-4 rounded-md mb-8">
+                <h2 class="text-xl font-semibold">Update Data Fasilitas</h2>
+            </div>
+            <form action="update_fasilitas.php" method="post" autocomplete="off" enctype="multipart/form-data">
+            <?php
+            $id_fasilitas = $_GET['id'];
+            include "koneksi.php";
+            $query = mysqli_query($koneksi, "SELECT * FROM fasilitas WHERE id_fasilitas = $id_fasilitas");
+            while ($data = mysqli_fetch_array($query)){
+            ?>
+                <input type="hidden" value="<?php echo $data['id_fasilitas'];?>" name="id_fasilitas">
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Fasilitas</label>
+                    <input type="text" name="fasilitas" class="w-full border-2 border-blue-500 rounded-full p-2"id="exampleInputEmail1"  value="<?php echo $data['fasilitas']; ?>" placeholder="Masukkan Fasilitas">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Upload Gambar</label>
+                    <input type="file" name="gambar"
+                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-300 file:text-gray-700 hover:file:bg-gray-400">
+                </div>
+                <div class="mb-4">
+                <div class="custom-file">
+                      <img src="pictures/<?php echo $data["gambar_fasilitas"]; ?>" width=200 title="<?php echo $data['gambar_fasilitas']; ?>"></td>
+                      </div>
+            </div>
+
+                <div class="bg-gray-300 p-4 rounded-md">
+                <button type="submit"name="proses" value="upload" class="bg-blue-600 text-white px-4 py-2 rounded-md">Simpan</button>
+                </div>
+                <?php }
+                ?>
+            </form>
+        </div>
+    </div>
+
+
+    
+</body>
+
+</html>
