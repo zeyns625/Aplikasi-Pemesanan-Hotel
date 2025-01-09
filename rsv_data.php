@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) {
-    header('Location: login_admin.php');
+    header('Location: login_petugas.php');
     exit();
 }
 $role = $_SESSION['role'];
